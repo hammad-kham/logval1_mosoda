@@ -1,0 +1,4 @@
+[26-May-2024 21:57:56 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home4/logicva1/sub_demos/mosoda/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home4/logicva1/sub_demos/mosoda/config/database.php on line 18

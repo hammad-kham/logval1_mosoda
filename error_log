@@ -1,0 +1,8 @@
+[10-Jan-2025 05:49:38 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
+[10-Jan-2025 05:49:50 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
+[10-Jan-2025 05:49:52 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
+[10-Jan-2025 05:49:58 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
+[10-Jan-2025 06:04:59 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
+[10-Jan-2025 06:05:03 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
+[10-Jan-2025 06:05:04 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
+[10-Jan-2025 06:05:14 UTC] PHP Fatal error:  Trait "App\Http\Controllers\Api\Illuminate\Support\Facades\Hash" not found in /home2/logicva1/sub_demos/mosoda/app/Http/Controllers/Api/AppUserApiController.php on line 40
