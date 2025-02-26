@@ -105,9 +105,9 @@
                 jQuery('#cat_id').html('');
                 var cat_id = jQuery('#cat_id');
                 console.log(this.value);
-                jQuery.get('{{ URL::to('/') }}/service/vendors/' + this.value + '/categoriesss.json',
+                jQuery.get('{{ URL::to('/') }}/vendors/' + this.value + '/categoriesss.json',
                     function(categories) {
-
+                    
                         cat_id.find('option').remove().end();
                         cat_id.append('<option value="">Select Sub Categories</option>');
 
@@ -128,7 +128,8 @@
                 jQuery('#sub_cat_id').html('');
                 var sub_cat_id = jQuery('#sub_cat_id');
                 console.log(this.value);
-                jQuery.get('{{ URL::to('/') }}/service/vendors/' + this.value + '/sub-categoriesss.json',
+          
+                jQuery.get('{{ URL::to('/') }}/vendors/' + this.value + '/sub-categoriesss.json',
                     function(sub_categories) {
 
                         sub_cat_id.find('option').remove().end();
@@ -150,7 +151,7 @@
                 var sub_cat_id = jQuery('#sub_cat_id');
                 var div = jQuery('#inner_attributes_div');
                 console.log(this.value);
-                jQuery.get('{{ URL::to('/') }}/service/vendors/sub_category_attributes/' + this.value +
+                jQuery.get('{{ URL::to('/') }}/vendors/sub_category_attributes/' + this.value +
                     '/sub_category_attributes.json',
                     function(attributes) {
                         if (attributes.length > 0) {

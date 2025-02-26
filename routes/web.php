@@ -696,7 +696,9 @@ Route::middleware(['auth'])->group(function () {
 						->where(['vend_id'=>$vend_id])
 						->get();
 					
-					return $categories;
+					// return $categories;
+					return response()->json($categories);
+
 				});
 				
 				Route::get('/vendors/{cat_id}/sub-categoriesss.json', function($cat_id)
@@ -706,8 +708,8 @@ Route::middleware(['auth'])->group(function () {
 						->where(['svc_sub_categories.status'=>1])
 						->where(['cat_id'=>$cat_id])
 						->get();
-					
-					return $sub_categories;
+						return response()->json($sub_categories);
+					// return $sub_categories;
 				});
 				
 			}

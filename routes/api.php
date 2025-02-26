@@ -62,7 +62,7 @@ Route::post('/app/{action}', [AppApiController::class, 'retMethod']);
 
 // --------- App Label ------------- //
 
-Route::post('/app-labels', [AppLabelController::class, 'retMethod']);
+// Route::post('/app-labels', [AppLabelController::class, 'retMethod']);
 
 
 // --------- AppSlide ------------- //

@@ -38,7 +38,7 @@
 </div>
 
 <div class="row">
-{{--    <?php--}}
+   <?php--}}
 {{--    if(isset($Model_Data->icon))--}}
 {{--    {--}}
 {{--    $image = $Model_Data->icon;--}}
@@ -48,7 +48,7 @@
 {{--        $image_path = 'defaults/';--}}
 {{--    }--}}
 {{--    $image_path.= $image;--}}
-{{--    ?>--}}
+{{--    ?>
 {{--    <div class="col-sm-6">--}}
 {{--        <img id="image" src="{{ uploads($image_path) }}" class="img-thumbnail img-responsive cust_img_cls" alt="Image" />--}}
 {{--    </div>--}}
