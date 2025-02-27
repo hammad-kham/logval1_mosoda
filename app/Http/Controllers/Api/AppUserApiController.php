@@ -375,6 +375,8 @@ class AppUserApiController extends BaseController
 
                                     $exists = 0;
                                     $records = SvcCategory::select('id')->where('id', '=', $cat_id)->where('status', '=', 1)->get();
+
+                                    $category = SvcCategory::find($cat_id);
                                     foreach ($records as $record) {
                                         $exists = 1;
                                     }
@@ -796,14 +798,13 @@ class AppUserApiController extends BaseController
         if ($proceed) {
 
             $User = AppUser::where('email', $email)->first();
-            
+
             if (!empty($User)) {
                 return $this->sendError("Email Already Exists");
             }
-            
+
             $reg_User = AppUser::where('new_email', $email)->first();
-            if(!empty($reg_User))
-            {
+            if (!empty($reg_User)) {
                 $response = [
                     'code' => '201',
                     'status' => true,
@@ -819,7 +820,7 @@ class AppUserApiController extends BaseController
 
             if (isset($request->email) && !empty($request->email))
                 $User->new_email = $request->email;
-                $User->email_otp = 1234;
+            $User->email_otp = 1234;
 
             if (isset($request->password) && !empty($request->password))
                 $User->password = md5($request->password);
@@ -1114,7 +1115,7 @@ class AppUserApiController extends BaseController
     public function verify_old_phone(Request $request, $User)
     {
         $phone = $request->phone;
-        
+
         $otp = 1234;
         $data = array();
 
@@ -1252,14 +1253,14 @@ class AppUserApiController extends BaseController
         if ($proceed) {
 
             $User = AppUser::where('phone', $phone)->first();
-            
-            
+
+
             if (!empty($User)) {
                 return $this->sendError("Phone No. Already Exists");
             }
-            
+
             $reg_User = AppUser::where('new_phone', $phone)->first();
-            if(!empty($reg_User)){
+            if (!empty($reg_User)) {
                 $response = [
                     'code' => '201',
                     'status' => true,
@@ -1276,7 +1277,7 @@ class AppUserApiController extends BaseController
 
             if (isset($request->phone) && !empty($request->phone))
                 $User->new_phone = $request->phone;
-                $User->phone_otp = 1234;
+            $User->phone_otp = 1234;
 
             $username = substr($request->phone, -4);
             $User->username = $username . "" . rand(1000, 999999);
@@ -1361,8 +1362,6 @@ class AppUserApiController extends BaseController
                 $User = AppUser::where('new_phone', $phone)->where('phone_otp', $request->code)->first();
             } else {
                 $User = AppUser::where('new_email', $email)->where('email_otp', $request->code)->first();
-
-
             }
             $found = false;
             if (empty($User)) {
@@ -1371,26 +1370,25 @@ class AppUserApiController extends BaseController
                 return $this->sendError('Your account is suspended. Please Contact Administrator.');
             } elseif ($User->status == 0) {
                 return $this->sendError('Your account is InActive. Please Contact Administrator.');
-            }
-            else{
-                if($type == "phone") {
-                AppUser::where('new_phone', $phone)->where('phone_otp', $request->code)->update([
-                    'phone'=>$phone,
-                    'new_phone'=>null,
-                    'phone_otp'=>null
-                ]);
-                $found = true;
+            } else {
+                if ($type == "phone") {
+                    AppUser::where('new_phone', $phone)->where('phone_otp', $request->code)->update([
+                        'phone' => $phone,
+                        'new_phone' => null,
+                        'phone_otp' => null
+                    ]);
+                    $found = true;
                 } else {
                     AppUser::where('new_email', $email)->where('email_otp', $request->code)->update([
-                        'email'=>$email,
-                        'new_email'=>null,
-                        'email_otp'=>null
+                        'email' => $email,
+                        'new_email' => null,
+                        'email_otp' => null
                     ]);
                     $found = true;
                 }
             }
 
-            
+
 
             if ($type == "phone") {
                 $verifications = DB::table('verification_codes')->where('user_id', $User->id)->where('sent_to', $phone)->get();
@@ -1595,7 +1593,7 @@ class AppUserApiController extends BaseController
         } elseif ($User->status == 0) {
             return $this->sendError('Your account is InActive. Please Contact Administrator.');
         }
-    
+
 
         $verifications = DB::table('verification_codes')->where('user_id', $User->id)->where('sent_to', $phone)->get();
         foreach ($verifications as $verification) {
@@ -3573,7 +3571,7 @@ class AppUserApiController extends BaseController
         $total = 0;
         if (isset($request->total))
             $total = $request->total;
-            
+
 
         $array = array();
         $array['total'] = $total;
@@ -3636,17 +3634,14 @@ class AppUserApiController extends BaseController
 
                 $in = $reward->intervals - $days_since_first_order;
                 $reward_array['expiry_message'] = "You can use this house in " . $in . " days";
-            } 
-            elseif ($user_rewards->has_limitations == 2 && $user_reward->created_at >= $reward->activated_at && $user_reward->created_at <= date('Y-m-d H:i:s', $reward->end_date)) {
+            } elseif ($user_rewards->has_limitations == 2 && $user_reward->created_at >= $reward->activated_at && $user_reward->created_at <= date('Y-m-d H:i:s', $reward->end_date)) {
                 $reward_array['message'] = "You can use this house till " . date('m-d-Y', $user_reward->end_date);
-            }
-            else {
+            } else {
                 RewardUser::where('user_id', $USer->id)->delete();
             }
 
 
-            if ($user_reward->punch_count >= $reward->platinum_punches) 
-            {
+            if ($user_reward->punch_count >= $reward->platinum_punches) {
                 $array['claimable'] = 1;
                 if ($array['claimable'] == 1) {
 
@@ -3656,7 +3651,7 @@ class AppUserApiController extends BaseController
                         $reward_array['reward_discount_type'] = "fixed value";
                         $reward_array['platinum_fixed_value'] = $reward->platinum_fixed_value;
                     } elseif ($reward->platinum_discount_percentage != null) {
-                        $array['discount'] = ($total * $reward->platinum_discount_percentage)/100;
+                        $array['discount'] = ($total * $reward->platinum_discount_percentage) / 100;
                         $reward_array['reward_type'] = "Platinum House";
                         $reward_array['reward_discount_type'] = "discount percentage";
                         $reward_array['platinum_discount_percentage'] = $reward->platinum_discount_percentage;
@@ -3675,10 +3670,7 @@ class AppUserApiController extends BaseController
                     }
                     */
                 }
-            } 
-
-            elseif ($user_reward->punch_count >= $reward->golden_punches) 
-            {
+            } elseif ($user_reward->punch_count >= $reward->golden_punches) {
                 $array['claimable'] = 1;
                 if ($array['claimable'] == 1) {
                     if ($reward->golden_fixed_value != null) {
@@ -3688,7 +3680,7 @@ class AppUserApiController extends BaseController
                         $reward_array['golden_fixed_value'] = $reward->golden_fixed_value;
                         $total = $total - $reward->golden_fixed_value;
                     } elseif ($reward->golden_discount_percentage != null) {
-                        $array['discount'] = ($total * $reward->golden_discount_percentage)/100;
+                        $array['discount'] = ($total * $reward->golden_discount_percentage) / 100;
                         $reward_array['reward_type'] = "Golden house";
                         $reward_array['reward_discount_type'] = "Golden discount percentage";
                         $reward_array['golden_discount_percentage'] = $reward->golden_discount_percentage;
@@ -3708,11 +3700,7 @@ class AppUserApiController extends BaseController
                     }
                     */
                 }
-            } 
-
-
-            elseif ($user_reward->punch_count >= $reward->silver_punches) 
-            {
+            } elseif ($user_reward->punch_count >= $reward->silver_punches) {
                 $array['claimable'] = 1;
                 if ($array['claimable'] == 1) {
                     if ($reward->silver_fixed_value != null) {
@@ -3721,18 +3709,16 @@ class AppUserApiController extends BaseController
                         $reward_array['reward_discount_type'] = "fixed value";
                         $reward_array['silver_fixed_value'] = $reward->silver_fixed_value;
                     } elseif ($reward->silver_discount_percentage != null) {
-                        $array['discount'] = ($total * $reward->silver_discount_percentage)/100;
+                        $array['discount'] = ($total * $reward->silver_discount_percentage) / 100;
                         $reward_array['reward_type'] = "Silver House";
                         $reward_array['reward_discount_type'] = "discount percentage";
                         $reward_array['silver_discount_percentage'] = $reward->silver_discount_percentage;
                     }
                 }
             }
-        
         }
 
-        if($array['discount'] > $total)
-        {
+        if ($array['discount'] > $total) {
             $array['claimable'] = 0;
         }
         $array['reward_details'] = $reward_array;
@@ -3742,7 +3728,7 @@ class AppUserApiController extends BaseController
         // $array['final_value'] = ($total + $data['vat_value']);
 
 
-       
+
 
         $coupon_code = 0;
         $coupon_discount_value = 0;
@@ -3789,8 +3775,8 @@ class AppUserApiController extends BaseController
 
         // $array = array();
         $sub_total = $total;
-        if($coupon_discount_value <= $sub_total)
-        $total -= $coupon_discount_value;
+        if ($coupon_discount_value <= $sub_total)
+            $total -= $coupon_discount_value;
 
 
 
@@ -3835,8 +3821,7 @@ class AppUserApiController extends BaseController
         $coupon_arrray['total'] = (int) $total;
         $coupon_arrray['vat_include_%'] = (int) $vat_include;
         $coupon_arrray['vat_value'] = (int) $vat_value;
-        $coupon_arrray['final_value'] = (int) $final_value; 
-        {
+        $coupon_arrray['final_value'] = (int) $final_value; {
             $vat_exists = 0;
             $vat_include = 0;
             $vat_value = 0;
@@ -3869,11 +3854,11 @@ class AppUserApiController extends BaseController
 
         $c_array = array();
         $c_array['simple_order_check'] = $data;
-        
+
         $c_array['with_reward_order_check'] = $array;
 
-        if($request->coupon_code != 0 && $request->coupon_code != null && $coupon_discount_value > 0){
-        $c_array['with_coupon_order_check'] = $coupon_arrray;
+        if ($request->coupon_code != 0 && $request->coupon_code != null && $coupon_discount_value > 0) {
+            $c_array['with_coupon_order_check'] = $coupon_arrray;
         }
         $response = [
             'code' => '201',
@@ -4267,9 +4252,38 @@ class AppUserApiController extends BaseController
             $type = $request->type;
 
         // random for testing, when adjusted in APIs then assign 0
-        $total = 0; //rand(500, 1000);
-        if (isset($request->total))
-            $total = $request->total;
+        // $total = 0; //rand(500, 1000);
+        // if (isset($request->total))
+        //     $total = $request->total;
+
+
+        $total = 0;
+        foreach ($request->details as $detail) {
+            // Check if sub_service_id is present, fetch price accordingly
+            if (!empty($detail['sub_service_id'])) {
+                $vendorService = SvcVendorService::where('vend_id', $vend_id)
+                    ->where('service_id', $detail['service_id'])
+                    ->where('sub_service_id', $detail['sub_service_id'])
+                    ->first();
+            } else {
+                $vendorService = SvcVendorService::where('vend_id', $vend_id)
+                ->where('service_id', $detail['service_id'])->first();
+            }
+            $price = $vendorService?->price ?? 0; // Default to 0 if no price found
+
+
+            // Calculate total item count
+            // $item_count = $detail['small_items'] + $detail['medium_items'] + $detail['large_items'];
+            // $sub_total = $price * $item_count;
+            // Add attribute prices (if any)
+            if (!empty($detail['attributes'])) {
+                foreach ($detail['attributes'] as $attribute) {
+                    // $sub_total += $attribute['price'] * $attribute['quantity'];
+                    $price += $attribute['price'] * $attribute['quantity'];
+                }
+            }
+            $total += $price;
+        }
 
         $order_ids = '0';
         if ($vend_id != 0 && $vend_id != '' && !empty($vend_id)) {
@@ -4589,14 +4603,13 @@ class AppUserApiController extends BaseController
                                     $discount = $reward->platinum_discount_percentage;
                                     $discount = (($total * $reward->platinum_discount_percentage / 100));
                                 }
-                                
+
                                 //  $discount = $reward->discount_percentage;
-                                if($total > $discount)
-                                {$reward_user_check->punch_count -= $Reward->platinum_punches;
+                                if ($total > $discount) {
+                                    $reward_user_check->punch_count -= $Reward->platinum_punches;
                                 }
                                 $reward_user_check->save();
-                            }
-                            elseif ($reward_user_check->punch_count > $Reward->golden_punches && $availble == 1) {
+                            } elseif ($reward_user_check->punch_count > $Reward->golden_punches && $availble == 1) {
 
                                 if ($reward->golden_fixed_value != null) {
                                     $discount = $reward->golden_fixed_value;
@@ -4608,8 +4621,7 @@ class AppUserApiController extends BaseController
 
                                 $reward_user_check->punch_count -= $Reward->golden_punches;
                                 $reward_user_check->save();
-                            } 
-                            elseif ($reward_user_check->punch_count > $reward->silver_punches && $availble == 1) {
+                            } elseif ($reward_user_check->punch_count > $reward->silver_punches && $availble == 1) {
 
                                 if ($reward->silver_fixed_value != null) {
                                     $discount = $reward->silver_fixed_value;
@@ -4731,13 +4743,13 @@ class AppUserApiController extends BaseController
                 // $order_update->total = $total - $golden_house;
                 $order_update->total = ($total);
 
-                if($total > $discount){
-                    
+                if ($total > $discount) {
+
                     $order_update->discount = $discount;
                     $order_update->total = ($total - $discount);
                     $order_update->final_value -= $discount;
                 }
-                
+
 
                 $order_update->vat_included = $vat_include;
                 $order_update->vat_value = $vat_value;
@@ -5378,8 +5390,8 @@ class AppUserApiController extends BaseController
             'status' => true,
             'message' => 'User Order created successfully!',
             'data' => [
-                    'order' => $array
-                ]
+                'order' => $array
+            ]
         ];
 
         return response()->json($response, 200);

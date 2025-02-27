@@ -459,7 +459,6 @@ class SvcVendorSubCategoryController extends Controller
 	*/
     public function store(Request $request)
     {	
-        return $request;
 		$Auth_User = Auth::user();      
 		if($Auth_User->can($this->add_permission) || $Auth_User->can('all'))
 		{

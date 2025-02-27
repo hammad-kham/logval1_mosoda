@@ -79,10 +79,10 @@ if (! function_exists('get_order_data'))
 		$array['sub_cat_id'] = $record->sub_cat_id;
 		$array['vend_id'] = $record->vend_id;
 		$array['vend_name'] = get_vendor_name($record->vend_id);
+		$array['total'] = $record->total;
 		$array['vat_included'] = $record->vat_included;
 		$array['vat_value'] = $record->vat_value;
 		$array['final_value'] = $record->final_value;
-		$array['total'] = $record->total;
 		$array['type'] = $record->type;
 		$array['notes'] = $record->notes;
 		$array['created_at'] = $record->created_at;
