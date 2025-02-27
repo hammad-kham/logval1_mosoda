@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers\services;
 
-use App\Http\Controllers\Controller;
-
 use Auth;
+
 use File;
-use Flash;
 use Response;
 use Attribute;
 use Datatables;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-
 use App\Models\User;
+use App\Models\SvcVendor;
+use App\Models\SvcService;
+use Laracasts\Flash\Flash;
+use App\Models\SvcCategory;
 
 use App\Models\SvcAttribute;
-use App\Models\SvcAttributeOption;
+use Illuminate\Http\Request;
 
-use App\Models\SvcCategory;
-use App\Models\SvcSubCategory;
-use App\Models\SvcService;
 use App\Models\SvcSubService;
 
-use App\Models\SvcVendor;
-use App\Models\SvcVendorCategory;
-use App\Models\SvcVendorSubCategory;
+use App\Models\SvcSubCategory;
 use App\Models\SvcVendorService;
+
+use App\Models\SvcVendorCategory;
+use App\Models\SvcAttributeOption;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+
+use App\Http\Controllers\Controller;
+use App\Models\SvcVendorSubCategory;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
 
 class SvcVendorServicesController extends Controller
 {
@@ -863,7 +863,7 @@ class SvcVendorServicesController extends Controller
 		{
 			$model_data = SvcVendorService::find($id);
 			
-			if (empty($Model_Data) || $this->is_not_authorized($id, $Auth_User)) {
+			if (empty($model_data) || $this->is_not_authorized($id, $Auth_User)) {
 				Flash::error($this->msg_not_found);
 				return redirect(route($this->home_route));
 			}

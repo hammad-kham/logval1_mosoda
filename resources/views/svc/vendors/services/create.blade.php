@@ -100,7 +100,7 @@
             {
                 jQuery('#cat_id').html('');
                 var cat_id = jQuery('#cat_id');
-                jQuery.get( '{{URL::to("/")}}/service/vendors/' + this.value + '/categories.json', function(categories)
+                jQuery.get( '{{URL::to("/")}}/vendors/' + this.value + '/categories.json', function(categories)
                 {
                     cat_id.find('option').remove().end();
                     cat_id.append('<option value="">Select Categories</option>');
@@ -136,7 +136,7 @@
                 ?>
                 
                 var sub_cat_id = jQuery('#sub_cat_id');
-                jQuery.get( '{{URL::to("/")}}/service/vendors/' + this.value + '/' + vend_id +'/sub-categories.json', function(sub_categories)
+                jQuery.get( '{{URL::to("/")}}/vendors/' + this.value + '/' + vend_id +'/sub-categories.json', function(sub_categories)
                 {
                     sub_cat_id.find('option').remove().end();
                     sub_cat_id.append('<option value="">Select Sub Categories</option>');
@@ -156,7 +156,7 @@
             {
                 jQuery('#ser_id').html('');
                 var ser_id = jQuery('#ser_id');
-                jQuery.get( '{{URL::to("/")}}/service/vendors/' + this.value + '/services.json', function(services)
+                jQuery.get( '{{URL::to("/")}}/vendors/' + this.value + '/services.json', function(services)
                 {
                     ser_id.find('option').remove().end();
                     ser_id.append('<option value="">Select Services</option>');
@@ -177,7 +177,7 @@
             {
                 jQuery('#sub_ser_id').html('');
                 var sub_ser_id = jQuery('#sub_ser_id');
-                jQuery.get( '{{URL::to("/")}}/service/vendors/' + this.value + '/sub-services.json', function(sub_services)
+                jQuery.get( '{{URL::to("/")}}/vendors/' + this.value + '/sub-services.json', function(sub_services)
                 {
                     sub_ser_id.find('option').remove().end();
                     sub_ser_id.append('<option value="">Select Sub Services</option>');
@@ -195,7 +195,7 @@
                 jQuery('#inner_attributes_div').html('');
                 var ser_id = jQuery('#ser_id');
                 var div = jQuery('#inner_attributes_div');
-                jQuery.get( '{{URL::to("/")}}/service/vendors/service_attributes/' + this.value + '/service_attributes.json', function(attributes)
+                jQuery.get( '{{URL::to("/")}}/vendors/service_attributes/' + this.value + '/service_attributes.json', function(attributes)
                 {
                     if (attributes.length > 0)
                     {
@@ -227,7 +227,7 @@
                 jQuery('#inner_attributes_div').html('');
                 var sub_ser_id = jQuery('#sub_ser_id');
                 var div = jQuery('#inner_attributes_div');
-                jQuery.get( '{{URL::to("/")}}/service/vendors/sub_service_attributes/' + this.value + '/sub_service_attributes.json', function(attributes)
+                jQuery.get( '{{URL::to("/")}}/vendors/sub_service_attributes/' + this.value + '/sub_service_attributes.json', function(attributes)
                 {
                     if (attributes.length > 0)
                     {

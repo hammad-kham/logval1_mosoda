@@ -4991,15 +4991,15 @@ class AppUserApiController extends BaseController
             }
         }
 
-        //$array = get_order_data($order_id);
+        $array = get_order_data($order_id);
 
         $response = [
             'code' => '201',
             'status' => true,
             'message' => 'User Order created successfully!',
-            /*'data' => [
+            'data' => [
                     'order' => $array
-                ]*/
+                ]
         ];
 
         return response()->json($response, 200);
@@ -5055,15 +5055,15 @@ class AppUserApiController extends BaseController
             }
         }
 
-        //$array = get_order_data($order_id);
+        $array = get_order_data($order_id);
 
         $response = [
             'code' => '201',
             'status' => true,
             'message' => 'User Order created successfully!',
-            /*'data' => [
+            'data' => [
                     'order' => $array
-                ]*/
+                ]
         ];
 
         return response()->json($response, 200);
